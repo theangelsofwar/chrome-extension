@@ -14,15 +14,19 @@ body {
 }
 
 h1, p {
-  font-family: sans-serif;
+  font-family: Oswald;
   text-align: center;
+  color: beige;
   padding: 20px;
+
+  text-shadow: 0px 0px 3px #eee, 5px 5px 2px rgb(64, 20, 94), -5px -2px 2px mix(black,red,50);
+  font-weight: 400;
 }
 
 .txt, select, form > div {
   display: block;
   margin: 0 auto;
-  font-family: sans-serif;
+  font-family: Oswald;
   font-size: 16px;
   padding: 5px;
   background-color: grey;
