@@ -1,7 +1,20 @@
 let synth=window.speechSynthesis;
 
 let inputForm=document.querySelector('form');
-let inputText=document.querySelector(".txt"); 
+//let inputText=document.querySelectorAll("p"); //scrapes all text with ptags to be placed into the div
+
+//the inputText is a static Node list
+
+
+//let realTextHTML=
+let inputText=document.getElementsByTagName("p"); 
+//actually and aray of html elements
+console.log(inputText);
+//ocument.getElementsByClassName('.txt').appendChild(inputText);
+
+
+//.innerHTML
+//document.querySelector(".txt"); 
 //CSS selectors 
 //Synthia
 //multitask multiple peripheral pages at various speeds
@@ -50,11 +63,15 @@ function speak(){
         console.error('speechSynthesis.speaking');
         return;
     }
-    if(inputText.value!==''){
-        let utterThis=new SpeechSynthesisUtterance(inputText.value);
+    //if(inputText.value!==''){
+        for(let i=0;i<inputText.length;i++){
+            let utterThis=new SpeechSynthesisUtterance(inputText[i].innerHTML);
+        }
+        
+        //removed inputText.value becaue inputText is the inner html value itelf(most primitive level of data)
         //switch to div css selector
         utterThis.onend=function(event){
-            console.log('SpeechSyntehsisUtterance.onened');
+            console.log('SpeechSyntehsisUtterance.onend');
         }
         utterThis.onerror=function(event){
             console.error('SpeechSynthesisUtterance.onerror');
@@ -69,13 +86,26 @@ function speak(){
         utterThis.pitch=pitch.value;
         utterThis.rate=rate.value;
         synth.speak(utterThis);
-    }
+    //}
+}
+
+
+
+
+function scrapeText(){
+    //scrapes the text from current page html parses the tag elements and hidden arias
+    // fetch(url)
+    // .then(resp=>resp.querySelector('html')){
+    // });
+    let x=document.querySelectorAll("p");
 }
 
 inputForm.onsubmit=function(event){
     event.preventDefault();
     speak();
-    inputTxt.blur();
+    //we are going to populate the html and then it will speak
+
+    inputText.blur();
 }
 
 pitch.onchange=function(){

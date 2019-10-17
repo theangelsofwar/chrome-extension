@@ -1,17 +1,21 @@
+
+
 {
     "name":"Synthia",
     "version":"1.0",
     "description":"Build an Extension",
     "launch_path":"2Synth.html",
     "background":{
-        "scripts":["index.js"],
-        "persisten":"false"
+        "scripts":["2Synth.js"],
+        "persistent":false
     },
-    "manifest_Version":2
-},
+    "manifest_Version":2,
+
 
 "browser_action":{
     "default_icon": "icon.png",
-    "default_popup": "index.html"
+    "default_popup": "2Synth.html"
 },
+"manifest_version":2
+}
 
