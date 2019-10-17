@@ -1,7 +1,5 @@
 //Periph, Ghosted, Hosted It's Lit Subliminal Messages Chrome Extension
 
-
-
 //EYE-SOAR, ARIA, LENSI-CAL, SWEET TALK, 
 //KEY COMPONENTS:
 
@@ -15,7 +13,7 @@
 
 //creating a manifest file
 //JSON Config
-(function(document){
+(function(document) {
     'use strict';
     let isRunning=false;
     let focusList=[];
@@ -76,88 +74,84 @@
 		}
 	};
 
-	// function addStyles() {
-	// 	const styleElement = document.createElement( 'style' );
-
-	// 	styleElement.textContent = `[tabindex="-1"] {
-	// 		outline: none;;
-	// 	}
-	// 	[data-sr-current] {
-	// 		outline: 5px rgba( 0, 0, 0, .7 ) solid !important;
-	// 	}
-	// 	html[data-sr-current] {
-	// 		outline-offset: -5px;
-	// 	}`;
-
-	// 	document.head.appendChild( styleElement );
-	// }
-
-
 function createFocusList() {
-  focusList.push(...document.querySelectorAll('html, body >: not ([aria-hidden]==true'));
+  focusList.push(...document.querySelectorAll('html, body >: not ([aria-hidden]=true)'));
 //get all text
-  focusList = focusList.filter((element)=>{
+console.log(focusList);
+  focusList = focusList.filter((element) => {
+      console.log(focusList);
     const styles = getComputedStyle(element);
     if (styles.visibility === 'hidden' || styles.display === 'none') return false; 
     return true; 
     // filter out based on font sizes 
   });
-  focusList.forEach((element)=>{
-      element.setAttribute('tabindex', element.tabIndex);
-  });
 }
 
-function moveFocus(offset){
-    focusIndex+=offset;
-    if(focusIndex<0){
-        focusIndex=focusList.length-1;
 
-    }else if(focusIndex>focusList.length-1){
-        focusIndex=0;
-    }
-    focus(focusList[focusIndex]);
-
-    if(offset instanceof HTMLElement){
-        focusIndex = focusList.findIndex((element )=>{
-            return element===offset;
-        });
-        return focus(offset);
-    }
+function getActiveElement() {
+  if (document.activeElement && document.activeElement !== document.body) {
+    return document.activeElement;
+  }
+  return focusList[0]; //acts as a queue structure
 }
 
-function focus(element){
-    if(element===document.body){
-        element=document.documentElement;
-    }
-    element.setAttribute('data-sr-current',true);
-    element.focus();
 
-    announceElement(element);
+//setInterval(moveFocus,speed);
+function moveFocus(offset) {
+  focusIndex += offset;
+  if (focusIndex < 0) {
+      focusIndex = focusList.length - 1;
+  } else if (focusIndex > focusList.length - 1) {
+      focusIndex = 0;
+  }
+  focus(focusList[focusIndex]);
+
+  if (offset instanceof HTMLElement) {
+      focusIndex = focusList.findIndex((element ) => {
+          return element === offset;
+      });
+      return focus(offset);
+  }
+}
+
+function focus(element) {
+  if (element === document.body) element = document.documentElement;
+  element.setAttribute('data-sr-current', true);
+  element.focus();
+
+  announceElement(element);
 }
 
 
 function computeRole(element){
-    const name=element.tagName.toLowerCase();
-    if(element.getAttribute('role')){
-        return element.getAttribute('role');
-    }
-    return mapings[name] || 'default';
+  const name = element.tagName.toLowerCase();
+  if (element.getAttribute('role')) {
+    return element.getAttribute('role');
+  }
+  return mappings[name] || 'default';
 }
 
-// const announcers={
-//     button(element){
-//         say( )
-//     }
-// }
+function addStyles() {
+    const styleElement = document.createElement( 'style' );
 
-// Speaking
+    styleElement.textContent = `[tabindex="-1"] {
+        outline: none;;
+    }
+    [data-sr-current] {
+        outline: 5px rgba( 0, 0, 0, .7 ) solid !important;
+    }
+    html[data-sr-current] {
+        outline-offset: -5px;
+    }`;
+
+    document.head.appendChild( styleElement );
+}
+//speaking
 function say(speech, callback) {
 	const text = new SpeechSynthesisUtterance(speech);
-
 	if (callback) {
 		text.onend = callback;
 	}
-
 	speechSynthesis.cancel();
 	speechSynthesis.speak(text);
 }
@@ -166,6 +160,7 @@ function say(speech, callback) {
 function start() {
   say('Screen reader on', () => {
     // add callback to activate speech function
+    moveFocus(getActiveElement());
     isRunning = true;
   })
 }
@@ -173,13 +168,18 @@ function start() {
 // Stop screen reader
 function stop() {
   // add code
+  const current = document.querySelector('[data-sr-current]');
+  if (current) current.removeAttribute('data-sr-current');
+  focusIndex = 0;
+  isRunning = false;
   say('Screen reader off');
 }
 
 // Event handler, toggling settings
 function keyDownHandler(event) {
+  console.log('hello world')
   if (event.keyCode === 32) {
-    event.preventDefault;
+    event.preventDefault();
     if (!isRunning) start();
     if (isRunning) stop();
   }
@@ -200,7 +200,9 @@ function keyDownHandler(event) {
 //change speed to 2x
 //emphasis on certain words pause, set timeout for longer
 //can not say curse words or the name "Donald Trump" will airhorn instead
+addStyles();
+createFocusList();
 document.addEventListener('keyDown', keyDownHandler);
 
 //future extension idea: add "sparknotes" of article feature, eliminate unimportant words, incorporate a dictionary and figure out frequency
-}(document));
+}(document))
