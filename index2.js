@@ -14,13 +14,10 @@ function screenRead() {
   createFocusList();
 
   function createFocusList() {
-    const test = document.querySelector('html');
-
-    const str = test.innerHTML;
-    document.getElementById('el').appendChild(str);
-    console.log('OUTPUT:  str', str)
+    const str = document.getElementById('body').innerHTML;
+    console.log(str);
+    // document.getElementById('el').appendChild(str);
     
-     console.log('OUTPUT: createFocusList -> test', test);
     // const allBodies = document.querySelectorAll('body');
     // const arrBodies = Array.from(allBodies);
     // console.log('OUTPUT: createFocusList -> arrBodies', arrBodies)

@@ -1,6 +1,6 @@
 //Periph, Ghosted, Hosted It's Lit Subliminal Messages Chrome Extension
 
-//EYE-SOAR, ARIA, LENSI-CAL, SWEET TALK, 
+//EYE-SOAR, ARIA, LENSI-CAL, SWEET TALK, 2SYNTH, Lil Synth
 //KEY COMPONENTS:
 
 //DOM MANIPULATION and Chrome Dev Tools

@@ -1,7 +1,8 @@
 {
-    "name":"Eye Soar",
+    "name":"Synthia",
     "version":"1.0",
     "description":"Build an Extension",
+    "launch_path":"2Synth.html",
     "background":{
         "scripts":["index.js"],
         "persisten":"false"
