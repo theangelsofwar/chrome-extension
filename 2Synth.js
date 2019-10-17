@@ -63,8 +63,10 @@ if(speechSynthesis.onvoiceschanged!==undefined){
 }
 
 let utterThis;
+let url=document.getElementById('txt'); //gets the url string
+console.log(url);
 function speak(){
-    fetch("https://en.wikipedia.org/wiki/Albert_Einstein")
+    fetch("https://crossorigin.me/https://en.wikipedia.org/wiki/Albert_Einstein")
     .then(function(response) {
       return (response.text());
     })
