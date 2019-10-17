@@ -4,16 +4,16 @@
 //other idea: input url and extracts elements from that url without having to switch tabs..
 //another idea: keep a cache of unqie words and use tensorflow to construct sensical lines as response
 
-let synth=window.speechSynthesis;
-
-let inputForm=document.querySelector('form');
+let synth = window.speechSynthesis;
+let isRunning=false;
+let inputForm = document.querySelector('form');
 //let inputText=document.querySelectorAll("p"); //scrapes all text with ptags to be placed into the div
 
 //the inputText is a static Node list
 
 
 //let realTextHTML=
-let inputText=document.getElementsByTagName("p"); //nodes array
+let inputText = document.getElementsByTagName("p"); //nodes array
 //actually and aray of html elements
 console.log(inputText);
 //ocument.getElementsByClassName('.txt').appendChild(inputText);
@@ -42,7 +42,7 @@ function populateVoiceList(){
         else return +1;
     });
 
-    let selectedIndex=voiceSelect.selectedIndex<0 ? 0 : voiceSelect.selectedIndex;
+    let selectedIndex = voiceSelect.selectedIndex < 0 ? 0 : voiceSelect.selectedIndex;
     voiceSelect.innerHTML='';
     for(let i=0;i<voices.length;i++){
         let option=document.createElement('option');
@@ -64,13 +64,14 @@ if(speechSynthesis.onvoiceschanged!==undefined){
     speechSynthesis.onvoiceschanged=populateVoiceList;
 }
 
+let utterThis;
 function speak(){
     if(synth.speaking){
         console.error('speechSynthesis.speaking');
         return;
     }
-    //if(inputText.value!==''){
-        let utterThis;
+
+    // ** IMPORTANT **
         for(let i=0;i<inputText.length;i++){
             utterThis=new SpeechSynthesisUtterance(inputText[i].innerHTML);
         }
@@ -93,39 +94,43 @@ function speak(){
         utterThis.pitch=pitch.value;
         utterThis.rate=rate.value;
         synth.speak(utterThis);
+        isRunning=true;
+    // ** IMPORTANT **
 
 
-
-        // //add eventListener for input url, 
-        // //event listener XMLHttpRequest
+          
+        //add eventListener for input url, 
+        //event listener XMLHttpRequest
         // window.addEventListener(XMLHttpRequest){ 
         //     //use fetch promises
         //     let speech;
         //     let url=""; //url will be inserted into the input box
-        //     let promise=fetch(url){ //automatic get request
-        //         .then(resp=>resp.json(){
-        //             speech=
-        //         });
+        //      let resp=await 
+        //      fetch(url)
+        //     if(resp.ok){
+        //         //200
+        //         let urlText=await resp.text();
         //     }
-        //     const text = new SpeechSynthesisUtterance(speech)
-        //     let allvoices=text.getAllVoices(); //randomly assign voices
 
 
-        //     //append url to tag id and auto populate into speak queue
+
+
+             //{ //automatic get request
+            //     .then(resp=>resp.json(){
+            //         speech=
+            //     });
+            // }
+            //const text = new SpeechSynthesisUtterance(speech);
+            //let allvoices = text.getAllVoices(); //randomly assign voices
+
+
+            //append url to tag id and auto populate into speak queue
            
-        // }
+       // }
        
         //fetch try url and speak using a get method to access dom elements
     //}
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -156,4 +161,35 @@ rate.onchange=function(){
 
 voiceSelect.onchange=function(){
     speak();
+}
+
+
+document.onkeydown = function(key) {keyDownHandler(key)}
+function keyDownHandler(event) {
+    if (event.keyCode === 32) {
+        if (isRunning === true) {
+            synth.pause();
+            isRunning = false;
+        }
+        if (isRunning === false) {
+            synth.resume();
+            isRunning = true;
+        }
+    }
+    if(event.keyCode===86){
+        console.log('change voice');
+        let index=Math.floor(Math.random() * (voices.length));
+        utterThis.voice=(synth.getVoices())[index];
+    }
+    if (event.keyCode === 38) { // up arrow, increase speed
+        if (utterThis.rate === 1) utterThis.rate = 2;
+        else if (utterThis.rate === 2) utterThis.rate = 3;
+        else if (utterThis.rate === 3) utterThis.rate = 4;
+    }
+    if (event.keyCode === 40) { // down arrow, decrease speed
+        if (utterThis.rate === 1) utterThis.rate = 0.5;
+        else if (utterThis.rate === 2) utterThis.rate = 1;
+        else if (utterThis.rate === 3) utterThis.rate = 2;
+    } 
+    
 }

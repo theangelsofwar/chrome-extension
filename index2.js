@@ -63,23 +63,23 @@ function screenRead() {
   }, 1000);
 
   // Event handler, toggling settings
-  // function keyDownHandler() {
-  //   if (event.keyCode === 32) {
-  //     if (!isRunning) start();
-  //     if (isRunning) stop();
-  //   }
+  function keyDownHandler() {
+    if (event.keyCode === 32) {
+      if (!isRunning) start();
+      if (isRunning) stop();
+    }
 
-  //   if (event.keyCode === 38) { // up arrow, increase speed
-  //     if (speed < 50) {
-  //       speed *= 2;
-  //     }
-  //   } 
-  //   if (event.keyCode === 40) { // down arrow, decrease speed
-  //     if (speed > 0) {
-  //       speed -= 10;
-  //     }
-  //   }
-  // }
+    if (event.keyCode === 38) { // up arrow, increase speed
+      if (speed < 50) {
+        speed *= 2;
+      }
+    } 
+    if (event.keyCode === 40) { // down arrow, decrease speed
+      if (speed > 0) {
+        speed -= 10;
+      }
+    }
+  }
 }
 
 document.addEventListener('load', screenRead());
