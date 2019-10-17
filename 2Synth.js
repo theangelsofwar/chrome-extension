@@ -7,7 +7,7 @@ let inputForm=document.querySelector('form');
 
 
 //let realTextHTML=
-let inputText=document.getElementsByTagName("p"); 
+let inputText=document.getElementsByTagName("p"); //nodes array
 //actually and aray of html elements
 console.log(inputText);
 //ocument.getElementsByClassName('.txt').appendChild(inputText);
@@ -64,8 +64,9 @@ function speak(){
         return;
     }
     //if(inputText.value!==''){
+        let utterThis;
         for(let i=0;i<inputText.length;i++){
-            let utterThis=new SpeechSynthesisUtterance(inputText[i].innerHTML);
+            utterThis=new SpeechSynthesisUtterance(inputText[i].innerHTML);
         }
         
         //removed inputText.value becaue inputText is the inner html value itelf(most primitive level of data)
@@ -105,7 +106,7 @@ inputForm.onsubmit=function(event){
     speak();
     //we are going to populate the html and then it will speak
 
-    inputText.blur();
+    //inputText.blur();
 }
 
 pitch.onchange=function(){
