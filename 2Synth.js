@@ -96,24 +96,24 @@ function speak(){
 
 
 
-        //add eventListener for input url, 
-        //event listener XMLHttpRequest
-        window.addEventListener(XMLHttpRequest){ 
-            //use fetch promises
-            let speech;
-            let url=""; //url will be inserted into the input box
-            fetch(url){
-                .then(resp=>resp.json(){
-                    speech=
-                });
-            }
-            const text = new SpeechSynthesisUtterance(speech)
-            let allvoices=text.getAllVoices(); //randomly assign voices
+        // //add eventListener for input url, 
+        // //event listener XMLHttpRequest
+        // window.addEventListener(XMLHttpRequest){ 
+        //     //use fetch promises
+        //     let speech;
+        //     let url=""; //url will be inserted into the input box
+        //     let promise=fetch(url){ //automatic get request
+        //         .then(resp=>resp.json(){
+        //             speech=
+        //         });
+        //     }
+        //     const text = new SpeechSynthesisUtterance(speech)
+        //     let allvoices=text.getAllVoices(); //randomly assign voices
 
 
-            //append url to tag id and auto populate into speak queue
+        //     //append url to tag id and auto populate into speak queue
            
-        }
+        // }
        
         //fetch try url and speak using a get method to access dom elements
     //}
