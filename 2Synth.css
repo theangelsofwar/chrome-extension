@@ -1,5 +1,6 @@
 body, html {
   margin: 0;
+  background-image: url(https://cdn.pixabay.com/photo/2018/05/07/19/07/cubes-3381438__340.jpg);
 }
 
 html {
@@ -24,6 +25,7 @@ h1, p {
   font-family: sans-serif;
   font-size: 16px;
   padding: 5px;
+  background-color: grey;
 }
 
 .txt {

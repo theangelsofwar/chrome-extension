@@ -1,3 +1,7 @@
+//TODO: ADD FUNctionality by having the queue continue speaking on event listener loop while changing tab
+//TO DO KEEP TRACK OF KEY WORDS AND APPEND IT TO A NOTEPAD TO TAKE NOTES OF BULLETPOINTS NON CONJUNCTIONS
+//BY ACCESSING A DICTIONARY
+
 let synth=window.speechSynthesis;
 
 let inputForm=document.querySelector('form');
@@ -93,12 +97,20 @@ function speak(){
 
 
 
+
+
+
+
+
+
+
 function scrapeText(){
     //scrapes the text from current page html parses the tag elements and hidden arias
     // fetch(url)
     // .then(resp=>resp.querySelector('html')){
     // });
-    let x=document.querySelectorAll("p");
+    let inputText=document.getElementsByTagName("p"); //nodes array
+    //must iterate through array elements and get the inner html values
 }
 
 inputForm.onsubmit=function(event){
