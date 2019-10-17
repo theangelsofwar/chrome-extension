@@ -5,7 +5,7 @@
 //another idea: keep a cache of unqie words and use tensorflow to construct sensical lines as response
 
 let synth = window.speechSynthesis;
-let isRunning=false;
+let isRunning = false;
 let inputForm = document.querySelector('form');
 //let inputText=document.querySelectorAll("p"); //scrapes all text with ptags to be placed into the div
 
@@ -28,9 +28,7 @@ let voiceSelect=document.querySelector('select'); // we will randomize
 let pitch=document.querySelector('#pitch');
 let pitchValue=document.querySelector('.pitch-value'); //class div element
 let rate=document.querySelector('#rate');
-
 let rateValue=document.querySelector('.rate-value');
-
 
 let voices=[];
 
@@ -66,6 +64,26 @@ if(speechSynthesis.onvoiceschanged!==undefined){
 
 let utterThis;
 function speak(){
+    fetch("https://en.wikipedia.org/wiki/Albert_Einstein")
+    .then(function(response) {
+      return (response.text());
+    })
+    .then(function(responseText) {
+      var parsedResponse = (new window.DOMParser()).parseFromString(responseText, "text/html");
+      document.getElementById("title").innerHTML = "Title: " + parsedResponse.title;
+      document.getElementById("visibleText").innerHTML = "Visible Text: " + parsedResponse.getElementsByTagName("body")[0].textContent;
+    });
+
+
+
+
+
+
+
+
+
+
+
     if(synth.speaking){
         console.error('speechSynthesis.speaking');
         return;
@@ -132,14 +150,12 @@ function speak(){
     //}
 }
 
-
-
 function scrapeText(){
     //scrapes the text from current page html parses the tag elements and hidden arias
     // fetch(url)
     // .then(resp=>resp.querySelector('html')){
     // });
-    let inputText=document.getElementsByTagName("p"); //nodes array
+    // let inputText=document.getElementsByTagName("p"); //nodes array
     //must iterate through array elements and get the inner html values
 }
 
@@ -176,11 +192,7 @@ function keyDownHandler(event) {
             isRunning = true;
         }
     }
-    if(event.keyCode===86){
-        console.log('change voice');
-        let index=Math.floor(Math.random() * (voices.length));
-        utterThis.voice=(synth.getVoices())[index];
-    }
+   
     if (event.keyCode === 38) { // up arrow, increase speed
         if (utterThis.rate === 1) utterThis.rate = 2;
         else if (utterThis.rate === 2) utterThis.rate = 3;
@@ -191,5 +203,9 @@ function keyDownHandler(event) {
         else if (utterThis.rate === 2) utterThis.rate = 1;
         else if (utterThis.rate === 3) utterThis.rate = 2;
     } 
-    
+    if(event.keyCode === 86){
+        console.log('change voice');
+        let index=Math.floor(Math.random() * (voices.length));
+        utterThis.voice=(synth.getVoices())[index];
+    }  
 }
