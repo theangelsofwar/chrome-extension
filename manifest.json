@@ -3,13 +3,19 @@
     "name":"Synthia",
     "version":"2.0",
     "description":"Build an Extension",
+    "icons": {"128": "icon.png"},
     "background": {
         "scripts":["2Synth.js"],
         "persistent":false
     },
     "browser_action": {
-        "default_icon": "icon.png",
         "default_popup": "2Synth.html"
-    }
+    },
+    "permissions": [
+        "webRequest", 
+        "webRequestBlocking",
+        "https://crossorigin.me/https://en.wikipedia.org/wiki/Albert_Einstein.com/*", 
+        "https://crossorigin.me/https://developer.mozilla.org/"
+    ]
 }
 

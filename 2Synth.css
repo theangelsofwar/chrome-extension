@@ -1,6 +1,7 @@
 body, html {
   margin: 0;
-  background-image: url(https://cdn.pixabay.com/photo/2018/05/07/19/07/cubes-3381438__340.jpg);
+  background-image: url(https://secure.i.telegraph.co.uk/multimedia/archive/03249/BEAUTIFUL-FACES_3249636b.jpg);
+  background-size: 100%;
 }
 
 html {
@@ -11,16 +12,23 @@ body {
   height: 90%;
   max-width: 800px;
   margin: 0 auto;
+  opacity: 0.8;
 }
 
 h1, p {
-  font-family: Oswald;
+  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   color: beige;
   padding: 20px;
 
   text-shadow: 0px 0px 3px #eee, 5px 5px 2px rgb(64, 20, 94), -5px -2px 2px mix(black,red,50);
   font-weight: 400;
+}
+
+h1 {
+  margin-top: 30px; 
+  color: purple;
+  font-weight: bold;
 }
 
 .txt, select, form > div {
@@ -57,6 +65,7 @@ label {
   float: left;
   width: 10%;
   line-height: 1.5;
+  font-weight: bold;
 }
 
 .rate-value, .pitch-value {

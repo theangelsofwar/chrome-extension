@@ -20,7 +20,7 @@ console.log(inputText);
 
 
 //.innerHTML
-//document.querySelector(".txt"); 
+//document.querySelector(".txts"); 
 //CSS selectors 
 //Synthia
 //multitask multiple peripheral pages at various speeds
@@ -66,18 +66,21 @@ let utterThis;
 let url=document.getElementById('txt'); //gets the url string
 console.log(url);
 function speak(){
+    
     fetch("https://crossorigin.me/https://en.wikipedia.org/wiki/Albert_Einstein")
     .then(function(response) {
+        console.log('RESPONSE.TEXT() : ',response.text());
       return (response.text());
     })
     .then(function(responseText) {
+
       var parsedResponse = (new window.DOMParser()).parseFromString(responseText, "text/html");
-      document.getElementById("title").innerHTML = "Title: " + parsedResponse.title;
-      document.getElementById("visibleText").innerHTML = "Visible Text: " + parsedResponse.getElementsByTagName("body")[0].textContent;
+      console.log(parseResponse);
+      inputText=document.getElementById("title").innerHTML = "Title: " + parsedResponse.title;
+      console.log(inputText);
+      inputText+=document.getElementById("visibleText").innerHTML = "Visible Text: " + parsedResponse.getElementsByTagName("body")[0].textContent;
+      console.log(inputText);
     });
-
-
-
 
 
 
