@@ -112,9 +112,8 @@ function speak(){
         utterThis.pitch=pitch.value;
         utterThis.rate=rate.value;
         synth.speak(utterThis);
-        isRunning=true;
+        isRunning=true; 
     // ** IMPORTANT **
-
 
           
         //add eventListener for input url, 
@@ -187,7 +186,7 @@ function keyDownHandler(event) {
             synth.pause();
             isRunning = false;
         }
-        if (isRunning === false) {
+        else if (isRunning === false) {
             synth.resume();
             isRunning = true;
         }
