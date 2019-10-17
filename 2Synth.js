@@ -1,6 +1,8 @@
 //TODO: ADD FUNctionality by having the queue continue speaking on event listener loop while changing tab
 //TO DO KEEP TRACK OF KEY WORDS AND APPEND IT TO A NOTEPAD TO TAKE NOTES OF BULLETPOINTS NON CONJUNCTIONS
 //BY ACCESSING A DICTIONARY
+//other idea: input url and extracts elements from that url without having to switch tabs..
+//another idea: keep a cache of unqie words and use tensorflow to construct sensical lines as response
 
 let synth=window.speechSynthesis;
 
@@ -91,6 +93,29 @@ function speak(){
         utterThis.pitch=pitch.value;
         utterThis.rate=rate.value;
         synth.speak(utterThis);
+
+
+
+        //add eventListener for input url, 
+        //event listener XMLHttpRequest
+        window.addEventListener(XMLHttpRequest){ 
+            //use fetch promises
+            let speech;
+            let url=""; //url will be inserted into the input box
+            fetch(url){
+                .then(resp=>resp.json(){
+                    speech=
+                });
+            }
+            const text = new SpeechSynthesisUtterance(speech)
+            let allvoices=text.getAllVoices(); //randomly assign voices
+
+
+            //append url to tag id and auto populate into speak queue
+           
+        }
+       
+        //fetch try url and speak using a get method to access dom elements
     //}
 }
 
