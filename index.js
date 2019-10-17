@@ -18,7 +18,7 @@
     let isRunning=false;
     let focusList=[];
     let focusIndex=0;
-    let speed=10;
+    let speed=100;
 
 
     const mappings = { //object mappings
