@@ -176,25 +176,25 @@ function stop() {
 }
 
 // Event handler, toggling settings
-function keyDownHandler(event) {
-  console.log('hello world')
-  if (event.keyCode === 32) {
-    event.preventDefault();
-    if (!isRunning) start();
-    if (isRunning) stop();
-  }
+// function keyDownHandler(event) {
+//   console.log('hello world')
+//   if (event.keyCode === 32) {
+//     event.preventDefault();
+//     if (!isRunning) start();
+//     if (isRunning) stop();
+//   }
 
-  if (event.keyCode === 38) {
-      if(speed<50){
-          speed*=2;
-      }
-  } // up arrow, increase speed
-  if (event.keyCode === 40) {
-      if(speed>0){
-          speed-=10;
-      }
-  } // down arrow, decrease speed
-}
+//   if (event.keyCode === 38) {
+//       if(speed<50){
+//           speed*=2;
+//       }
+//   } // up arrow, increase speed
+//   if (event.keyCode === 40) {
+//       if(speed>0){
+//           speed-=10;
+//       }
+//   } // down arrow, decrease speed
+// }
 
 // Event listener (start/stop extension)
 //change speed to 2x

@@ -1,5 +1,5 @@
 function screenRead() {
-  let focusList=['hello', 'my', 'name', 'is', 'ken', 'hi'];
+  let focusList = [];
   let isRunning=false;
     let focusIndex=0;
     let speed=100;
@@ -11,16 +11,38 @@ function screenRead() {
       img: 'image'
   }
 
-  // function createFocusList() {
-  //   focusList.push(...document.querySelectorAll('html, body >: not ([aria-hidden]=true)'));
-  //   console.log(focusList);
-  //   focusList = focusList.filter((element) => {
-  //     console.log(focusList);
-  //     const styles = getComputedStyle(element);
-  //     if (styles.visibility === 'hidden' || styles.display === 'none') return false; 
-  //     return true;
-  //   });
-  // }
+  createFocusList();
+
+  function createFocusList() {
+    const test = document.querySelector('html');
+
+    const str = test.innerHTML;
+    document.getElementById('el').appendChild(str);
+    console.log('OUTPUT:  str', str)
+    
+     console.log('OUTPUT: createFocusList -> test', test);
+    // const allBodies = document.querySelectorAll('body');
+    // const arrBodies = Array.from(allBodies);
+    // console.log('OUTPUT: createFocusList -> arrBodies', arrBodies)
+
+    // console.log('H2: ', document.getElementsByTagName('h2').innerHTML);
+   
+    fetch('https://www.latimes.com/food/story/2019-10-16/seoul-boyle-heights-east-la-tacos-itaewon-el-pino-323')
+      .then(resp => console.log(resp))
+      // .then(resp => console.log(resp))
+
+    
+    
+    // focusList.push($$("h2"));
+    // console.log(focusList);
+
+    focusList = focusList.filter((element) => {
+      console.log(focusList);
+      const styles = getComputedStyle(element);
+      if (styles.visibility === 'hidden' || styles.display === 'none') return false; 
+      return true;
+    });
+  }
 
   function focus(element) {
     if (element === document.body) element = document.documentElement;
@@ -36,11 +58,12 @@ function screenRead() {
     speechSynthesis.speak(text);
 }
 
-setInterval(() => {
-  for (const item of focusList) {
-    say(item);
-  }
-}, 1000);
+  setInterval(() => {
+    for (const item of focusList) {
+      say(item);
+      
+    }
+  }, 1000);
 
   // Event handler, toggling settings
   // function keyDownHandler() {
