@@ -2,21 +2,12 @@
 
 
 
-//EYE-SOAR, SCREEN, LENSI-CAL, SWEET TALK, 
+//EYE-SOAR, ARIA, LENSI-CAL, SWEET TALK, 
 //KEY COMPONENTS:
 
 //DOM MANIPULATION and Chrome Dev Tools
 // Adding new task to To Do list
 // const translate = require('google-translate-api');
- 
-// translate('Ik spreek Engels', {to: 'en'}).then(res => {
-//     console.log(res.text);
-//     //=> I speak English
-//     console.log(res.from.language.iso);
-//     //=> nl
-// }).catch(err => {
-//     console.error(err);
-// });
 
 // function randomInt(min,max){
 //     return Math.floor(Math.random()*(max-min+1))+min;
@@ -24,11 +15,82 @@
 
 //creating a manifest file
 //JSON Config
+(function(document){
+    'use strict';
+    let isRunning=false;
+    let focusList=[];
+    let focusIndex=0;
+    let speed=10;
 
-const focusList=[];
 
-var msg = new SpeechSynthesisUtterance('Hello World');
-window.speechSynthesis.speak(msg);
+    const mappings = { //object mappings
+        a:'link',
+        button:'button',
+        h2: 'heading',
+        p: 'paragraph',
+        html:'page',
+        img: 'image'
+    }
+
+
+    function computeAccessibleName(element){
+        const constant = element.textContent.trim();
+        if (element.getAttribute('aria-label')) {
+          return element.getAttribute('aria-label');
+        } else if (element.getAttribute('alt')) {
+          return element.getAttribute('alt');
+        }
+        return content;
+    }
+    const announcers={
+		page( element ) {
+			const title = element.querySelector( 'title' ).textContent;
+
+			say( `Page ${ title }` );
+		},
+
+		link( element ) {
+			say( `Link, ${ computeAccessibleName( element ) }. To follow the link, press Enter key.` );
+		},
+
+		button( element ) {
+			say( `Button, ${ computeAccessibleName( element ) }. To press the button, press Space key.` );
+		},
+
+		heading( element ) {
+			const level = element.getAttribute( 'aria-level' ) || element.tagName[ 1 ];
+
+			say( `Heading level ${ level }, ${ computeAccessibleName( element ) }` );
+		},
+
+		paragraph( element ) {
+			say( element.textContent );
+		},
+
+		image( element ) {
+			say( `Image, ${ computeAccessibleName( element ) }` );
+		},
+
+		default( element ) {
+			say( `${ element.tagName } element: ${ computeAccessibleName( element ) }` );
+		}
+	};
+
+	// function addStyles() {
+	// 	const styleElement = document.createElement( 'style' );
+
+	// 	styleElement.textContent = `[tabindex="-1"] {
+	// 		outline: none;;
+	// 	}
+	// 	[data-sr-current] {
+	// 		outline: 5px rgba( 0, 0, 0, .7 ) solid !important;
+	// 	}
+	// 	html[data-sr-current] {
+	// 		outline-offset: -5px;
+	// 	}`;
+
+	// 	document.head.appendChild( styleElement );
+	// }
 
 
 function createFocusList() {
@@ -56,7 +118,7 @@ function moveFocus(offset){
     focus(focusList[focusIndex]);
 
     if(offset instanceof HTMLElement){
-        focusIndex=focusList.findIndex((element )=>{
+        focusIndex = focusList.findIndex((element )=>{
             return element===offset;
         });
         return focus(offset);
@@ -73,16 +135,20 @@ function focus(element){
     announceElement(element);
 }
 
-const mappings={
-    button:'button',
-};
 
 function computeRole(element){
     const name=element.tagName.toLowerCase();
     if(element.getAttribute('role')){
-        return element.get
+        return element.getAttribute('role');
     }
+    return mapings[name] || 'default';
 }
+
+// const announcers={
+//     button(element){
+//         say( )
+//     }
+// }
 
 // Speaking
 function say(speech, callback) {
@@ -96,11 +162,45 @@ function say(speech, callback) {
 	speechSynthesis.speak(text);
 }
 
-let wordArr=[];
+// Start screen reader 
+function start() {
+  say('Screen reader on', () => {
+    // add callback to activate speech function
+    isRunning = true;
+  })
+}
 
-function getText
+// Stop screen reader
+function stop() {
+  // add code
+  say('Screen reader off');
+}
 
+// Event handler, toggling settings
+function keyDownHandler(event) {
+  if (event.keyCode === 32) {
+    event.preventDefault;
+    if (!isRunning) start();
+    if (isRunning) stop();
+  }
 
+  if (event.keyCode === 38) {
+      if(speed<50){
+          speed*=2;
+      }
+  } // up arrow, increase speed
+  if (event.keyCode === 40) {
+      if(speed>0){
+          speed-=10;
+      }
+  } // down arrow, decrease speed
+}
 
+// Event listener (start/stop extension)
+//change speed to 2x
+//emphasis on certain words pause, set timeout for longer
+//can not say curse words or the name "Donald Trump" will airhorn instead
+document.addEventListener('keyDown', keyDownHandler);
 
 //future extension idea: add "sparknotes" of article feature, eliminate unimportant words, incorporate a dictionary and figure out frequency
+}(document));

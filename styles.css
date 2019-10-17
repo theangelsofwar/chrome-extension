@@ -1,66 +1,9 @@
-body {
-    margin: 10px auto;
-    width: 800px;
-  }
-  body, table {
-    color: #4f4f4f;
-    font: normal normal normal 14px Verdana, Tahoma, sans-serif;
-    border-spacing: 0px;
-  }
-  input, button {
-    font-size: 14px;
-  }
-  select {
-    font-size: 16px;
-  }
-  td {
-    width: 140px;
-  }
-  div.content {
-    text-align: left;
-  }
-  div.heading {
-    text-align: left;
-    font-size: 1.3em;
-  }
-  .option {
-    margin-top: 25px;
-  }
-  fieldset.option {
-    border-width: 1px;
-    border-radius: 5px;
-    border-style: solid;
-    border-color: #ccc;
-  }
-  div.button {
-    float: left;
-  }
-  div.button_group {
-    margin-top: 30px;
-  }
-  #status {
-    display: none;
-    color: green;
-    float: left;
-    margin-top: 4px;
-    margin-left: 8px;
-  }
-  .hint {
-    color: purple;
-  }
-  .help {
-    cursor: help;
-    border-bottom: 1px dotted;
-  }
-  .disabled {
-    color: #ccc;
-  }
-  .pulse {
-    border-radius: 3%;
-    border: 1px solid red;
-    box-shadow: 0 0 0 rgba(255, 0, 0, 0.4);
-    animation: pulse 2s infinite;
-  }
-  .pulse:hover {
-    animation: none;
-  }
+unknown-element {
+    display: block;
+}
+.display {
+    display: NONE;
+}
+.visibility {
+    visibility: hidden;
+}
