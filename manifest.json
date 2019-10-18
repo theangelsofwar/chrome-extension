@@ -10,12 +10,7 @@
     },
     "browser_action": {
         "default_popup": "2Synth.html"
-    },
-    "permissions": [
-        "webRequest", 
-        "webRequestBlocking",
-        "https://crossorigin.me/https://en.wikipedia.org/wiki/Albert_Einstein.com/*", 
-        "https://crossorigin.me/https://developer.mozilla.org/"
-    ]
+    }
+    
 }
 

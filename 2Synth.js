@@ -3,7 +3,6 @@
 //BY ACCESSING A DICTIONARY
 //other idea: input url and extracts elements from that url without having to switch tabs..
 //another idea: keep a cache of unqie words and use tensorflow to construct sensical lines as response
-
 let synth = window.speechSynthesis;
 let isRunning = false;
 let inputForm = document.querySelector('form');
@@ -11,13 +10,11 @@ let inputForm = document.querySelector('form');
 
 //the inputText is a static Node list
 
-
 //let realTextHTML=
 let inputText = document.getElementsByTagName("p"); //nodes array
 //actually and aray of html elements
 console.log(inputText);
 //ocument.getElementsByClassName('.txt').appendChild(inputText);
-
 
 //.innerHTML
 //document.querySelector(".txts"); 
@@ -53,7 +50,7 @@ function populateVoiceList(){
         option.setAttribute('data-lang',voices[i].lang);
         option.setAttribute('data-name',voices[i].name);
         voiceSelect.appendChild(option);
-    }
+    } 
     voiceSelect.selectedIndex=selectedIndex;
 }
 
@@ -65,9 +62,9 @@ if(speechSynthesis.onvoiceschanged!==undefined){
 let utterThis;
 let url=document.getElementById('txt'); //gets the url string
 console.log(url);
-function speak(){
-    
-    fetch("https://crossorigin.me/https://en.wikipedia.org/wiki/Albert_Einstein")
+function speak(optionalText){
+    if(!optionalText){
+    fetch("https://crossorigin.me/http://www.washingtonpost.com/wp-srv/projects/yrreview/year.htm")
     .then(function(response) {
         console.log('RESPONSE.TEXT() : ',response.text());
       return (response.text());
@@ -81,12 +78,6 @@ function speak(){
       inputText+=document.getElementById("visibleText").innerHTML = "Visible Text: " + parsedResponse.getElementsByTagName("body")[0].textContent;
       console.log(inputText);
     });
-
-
-
-
-
-
 
 
     if(synth.speaking){
@@ -114,12 +105,18 @@ function speak(){
                 break;
             }
         }
+    }
+    else{//if optional text is there
+        for(let i=0;i<optionalText.length;i++){
+            utterThis=new SpeechSynthesisUtterance(optionalText[i].innerHTML);
+        }
+    }
         utterThis.pitch=pitch.value;
         utterThis.rate=rate.value;
         synth.speak(utterThis);
         isRunning=true; 
     // ** IMPORTANT **
-
+   
           
         //add eventListener for input url, 
         //event listener XMLHttpRequest
@@ -164,11 +161,14 @@ function scrapeText(){
 }
 
 inputForm.onsubmit=function(event){
-    event.preventDefault();
-    speak();
-    //we are going to populate the html and then it will speak
-
-    //inputText.blur();
+    if(document.getElementById('txt')!==null){
+        let newText=document.getElementById('txt');
+        for(let i=0;i<newText.length;i++){
+            utterThis=new SpeechSynthesisUtterance(newText[i].innerHTML);
+        }
+        synth.speak(utterThis);
+        isRunning=true;
+    }
 }
 
 pitch.onchange=function(){
@@ -198,6 +198,7 @@ function keyDownHandler(event) {
     }
    
     if (event.keyCode === 38) { // up arrow, increase speed
+        console.log(utterThis.rate);
         if (utterThis.rate === 1) utterThis.rate = 2;
         else if (utterThis.rate === 2) utterThis.rate = 3;
         else if (utterThis.rate === 3) utterThis.rate = 4;
@@ -209,7 +210,7 @@ function keyDownHandler(event) {
     } 
     if(event.keyCode === 86){
         console.log('change voice');
-        let index=Math.floor(Math.random() * (voices.length));
+        let index=Math.floor(Math.random() * (synth.getVoices().length));
         utterThis.voice=(synth.getVoices())[index];
     }  
 }
